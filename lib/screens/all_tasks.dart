@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zc_dodiddone/widgets/task_item.dart';
 
 class TasksPage extends StatefulWidget {
   const TasksPage({Key? key}) : super(key: key);
@@ -21,9 +22,10 @@ class _TasksPageState extends State<TasksPage> {
     return  ListView.builder(
         itemCount: _tasks.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(_tasks[index]),
-            trailing: const Icon(Icons.check_circle), // Add a checkmark icon
+          return TaskItem(
+            title: _tasks[index], 
+            description: 'Описание задачи',
+            deadline: DateTime.now(),
           );
         },
       );
