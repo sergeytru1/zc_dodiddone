@@ -12,6 +12,9 @@ class DoDidDoneTheme {
     // Add this to style the text of the ElevatedButton
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(
+          const Color(0xFF4CE8B8), // Set background color
+        ),
         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         textStyle: MaterialStateProperty.all<TextStyle>(
           const TextStyle(color: Colors.white), // Set text color to white
