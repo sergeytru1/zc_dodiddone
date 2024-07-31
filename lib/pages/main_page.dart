@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/theme.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -32,8 +33,20 @@ class _MainPageState extends State<MainPage> {
         title: const Text('DoDidDone'),
         centerTitle: true,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: Container( // Add Container for gradient
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight, // Adjust gradient direction if needed
+            colors: [
+              DoDidDoneTheme.lightTheme.colorScheme.secondary,
+              DoDidDoneTheme.lightTheme.colorScheme.primary,
+            ],
+          ),
+        ),
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
