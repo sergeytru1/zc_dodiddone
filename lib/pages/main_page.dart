@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:zc_dodiddone/screens/all_tasks.dart';
 import '../theme/theme.dart';
 import 'package:zc_dodiddone/screens/profile.dart'; // Import ProfilePage
@@ -24,6 +25,78 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  // Функция для показа диалога добавления задачи
+  void _showAddTaskDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        String title = '';
+        String description = '';
+        DateTime deadline = DateTime.now();
+
+        return AlertDialog(
+          title: const Text('Добавить задачу'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                onChanged: (value) {
+                  title = value;
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Название задачи',
+                ),
+              ),
+              TextField(
+                onChanged: (value) {
+                  description = value;
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Описание',
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Открыть календарь для выбора дедлайна
+                  showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100),
+                  ).then((selectedDate) {
+                    if (selectedDate != null) {
+                      deadline = selectedDate;
+                      // Обновить состояние, чтобы отобразить выбранный дедлайн
+                      setState(() {});
+                    }
+                  });
+                },
+                child: const Text('Выбрать дедлайн'),
+              ),
+              Text('Дедлайн: ${DateFormat('dd.MM.yy').format(deadline)}'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Отмена'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Добавить задачу в список (например, в Firestore)
+                // ...
+                Navigator.pop(context);
+              },
+              child: const Text('Добавить'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -72,6 +145,10 @@ class _MainPageState extends State<MainPage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _showAddTaskDialog,
+        child: const Icon(Icons.add),
       ),
     );
   }
