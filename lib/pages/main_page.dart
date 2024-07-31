@@ -67,15 +67,29 @@ class _MainPageState extends State<MainPage> {
                     lastDate: DateTime(2100),
                   ).then((selectedDate) {
                     if (selectedDate != null) {
-                      deadline = selectedDate;
-                      // Обновить состояние, чтобы отобразить выбранный дедлайн
-                      setState(() {});
+                      // Открыть TimePicker для выбора времени
+                      showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.fromDateTime(DateTime.now()),
+                      ).then((selectedTime) {
+                        if (selectedTime != null) {
+                          deadline = DateTime(
+                            selectedDate.year,
+                            selectedDate.month,
+                            selectedDate.day,
+                            selectedTime.hour,
+                            selectedTime.minute,
+                          );
+                          // Обновить состояние, чтобы отобразить выбранный дедлайн
+                          setState(() {});
+                        }
+                      });
                     }
                   });
                 },
                 child: const Text('Выбрать дедлайн'),
               ),
-              Text('Дедлайн: ${DateFormat('dd.MM.yy').format(deadline)}'),
+              Text('Дедлайн: ${DateFormat('dd.MM.yy HH:mm').format(deadline)}'),
             ],
           ),
           actions: [
