@@ -36,78 +36,90 @@ class _MainPageState extends State<MainPage> {
         String description = '';
         DateTime deadline = DateTime.now();
 
-        return AlertDialog(
-          title: const Text('Добавить задачу'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                onChanged: (value) {
-                  title = value;
-                },
-                decoration: const InputDecoration(
-                  labelText: 'Название задачи',
-                ),
-              ),
-              TextField(
-                onChanged: (value) {
-                  description = value;
-                },
-                decoration: const InputDecoration(
-                  labelText: 'Описание',
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Открыть календарь для выбора дедлайна
-                  showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2100),
-                  ).then((selectedDate) {
-                    if (selectedDate != null) {
-                      // Открыть TimePicker для выбора времени
-                      showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.fromDateTime(DateTime.now()),
-                      ).then((selectedTime) {
-                        if (selectedTime != null) {
-                          deadline = DateTime(
-                            selectedDate.year,
-                            selectedDate.month,
-                            selectedDate.day,
-                            selectedTime.hour,
-                            selectedTime.minute,
-                          );
-                          // Обновить состояние, чтобы отобразить выбранный дедлайн
-                          setState(() {});
-                        }
-                      });
-                    }
-                  });
-                },
-                child: const Text('Выбрать дедлайн'),
-              ),
-              Text('Дедлайн: ${DateFormat('dd.MM.yy HH:mm').format(deadline)}'),
-            ],
+        return Dialog( // Use Dialog instead of AlertDialog
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16), // Add rounded corners
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Отмена'),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            width: MediaQuery.of(context).size.width * 0.8, // 80% width
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  onChanged: (value) {
+                    title = value;
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Название задачи',
+                  ),
+                ),
+                TextField(
+                  onChanged: (value) {
+                    description = value;
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Описание',
+                  ),
+                ),
+                const SizedBox(height: 16), // Add spacing
+                ElevatedButton(
+                  onPressed: () {
+                    // Открыть календарь для выбора дедлайна
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100),
+                    ).then((selectedDate) {
+                      if (selectedDate != null) {
+                        // Открыть TimePicker для выбора времени
+                        showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.fromDateTime(DateTime.now()),
+                        ).then((selectedTime) {
+                          if (selectedTime != null) {
+                            deadline = DateTime(
+                              selectedDate.year,
+                              selectedDate.month,
+                              selectedDate.day,
+                              selectedTime.hour,
+                              selectedTime.minute,
+                            );
+                            // Обновить состояние, чтобы отобразить выбранный дедлайн
+                            setState(() {});
+                          }
+                        });
+                      }
+                    });
+                  },
+                  child: const Text('Выбрать дедлайн'),
+                ),
+                const SizedBox(height: 16), // Add spacing
+                Text('Дедлайн: ${DateFormat('dd.MM.yy HH:mm').format(deadline)}'),
+                const SizedBox(height: 24), // Add spacing
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Отмена'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // Добавить задачу в список (например, в Firestore)
+                        // ...
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Добавить'),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            TextButton(
-              onPressed: () {
-                // Добавить задачу в список (например, в Firestore)
-                // ...
-                Navigator.pop(context);
-              },
-              child: const Text('Добавить'),
-            ),
-          ],
+          ),
         );
       },
     );
