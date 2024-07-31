@@ -7,8 +7,10 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
   bool isLogin = true; // Флаг для определения режима (вход/регистрация)
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,13 +33,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-             
-              const SizedBox(height: 30),
-              // Добавляем текст "Do"
+              // Добавляем текст "DoDidDone"
               RichText(
                 text: TextSpan(
                   style: const TextStyle(
@@ -63,6 +62,27 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(height: 20),
+              // Добавляем AssetImage bp из файла logo.jpg
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/logo.png', // Замените на правильный путь к файлу
+                    height: 45, // Устанавливаем высоту изображения
+                  ),
+                  const SizedBox(width: 8),
+                  // Добавляем текст "zerocoder"
+                  Text(
+                    'zerocoder',
+                    style: TextStyle(
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, // Белый цвет текста
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 30),
               // Заголовок
@@ -152,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                       : 'Уже есть аккаунт...',
                   style: const TextStyle(
                     color: Colors.white,
-    //                **decoration: TextDecoration.underline**
+                    //                **decoration: TextDecoration.underline**
                   ),
                 ),
               ),
