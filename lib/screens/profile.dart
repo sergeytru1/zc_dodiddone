@@ -15,27 +15,25 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Профиль'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Аватар
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage:  AssetImage('assets/images/_1.png'),
-            ),
-            const SizedBox(height: 20),
-            // Почта
-            Text(
-              //_user?.email ?? 'Неизвестно',
-              'example@email.com', // замените на реальную почту
-              style: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 20),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Аватар
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: const AssetImage(
+                'assets/images/_1.png'), // Замените на реальный путь к аватару
+          ),
+          const SizedBox(height: 20),
+          // Почта
+          Text(
+            'example@email.com', // Замените на реальную почту пользователя
+            style: const TextStyle(fontSize: 18),
+          ),
+          const SizedBox(height: 10),
           // Кнопка подтверждения почты (отображается, если почта не подтверждена)
           if (!isEmailVerified)
             ElevatedButton(
@@ -75,9 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             child: const Text('Выйти'),
           ),
-
-          ],
-        ),
+        ],
       ),
     );
   }
