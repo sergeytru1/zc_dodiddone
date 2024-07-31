@@ -18,5 +18,13 @@ class DoDidDoneTheme {
         ),
       ),
     ),
+    // Add this to style the BottomNavigationBar
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.white, // Set background color
+      selectedItemColor: const Color(0xFF9F7BF6), // Set selected item color
+      unselectedItemColor: Colors.grey, // Set unselected item color
+      showUnselectedLabels: true, // Show labels for unselected items
+      type: BottomNavigationBarType.fixed, // Use fixed type for consistent size
+    ),
   );
 }
